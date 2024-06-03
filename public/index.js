@@ -1,11 +1,16 @@
 document.getElementById('saveSettings').addEventListener('click', function() {
-    const setting1 = document.getElementById('setting1').value;
-    const setting2 = document.getElementById('setting2').value;
-    const worksheet = document.getElementById('worksheetSelect').value;
+    const selectedWorksheet = document.getElementById('worksheetSelect').value;
+    const inputFields = document.querySelectorAll('.input-field');
 
-    tableau.extensions.settings.set('setting1', setting1);
-    tableau.extensions.settings.set('setting2', setting2);
-    tableau.extensions.settings.set('worksheet', worksheet);
+    const settings = {
+        selectedWorksheet,
+        fields: Array.from(inputFields).map(input => ({
+            id: input.id,
+            value: input.value
+        }))
+    };
+
+    tableau.extensions.settings.set('writebackSettings', JSON.stringify(settings));
 
     tableau.extensions.settings.saveAsync().then(() => {
         console.log('Settings saved');
@@ -14,24 +19,28 @@ document.getElementById('saveSettings').addEventListener('click', function() {
     });
 });
 
-// Initialize the extension and fetch existing settings
 tableau.extensions.initializeAsync().then(() => {
-    const setting1 = tableau.extensions.settings.get('setting1') || '';
-    const setting2 = tableau.extensions.settings.get('setting2') || '';
-    const worksheet = tableau.extensions.settings.get('worksheet') || '';
+    const settings = JSON.parse(tableau.extensions.settings.get('writebackSettings') || '{}');
 
-    document.getElementById('setting1').value = setting1;
-    document.getElementById('setting2').value = setting2;
+    if (settings.selectedWorksheet) {
+        document.getElementById('worksheetSelect').value = settings.selectedWorksheet;
+    }
 
-    // Populate worksheet selection
-    const dashboard = tableau.extensions.dashboardContent.dashboard;
-    dashboard.worksheets.forEach(worksheet => {
+    if (settings.fields) {
+        settings.fields.forEach(field => {
+            const input = document.getElementById(field.id);
+            if (input) {
+                input.value = field.value;
+            }
+        });
+    }
+
+    tableau.extensions.dashboardContent.dashboard.worksheets.forEach(worksheet => {
         const option = document.createElement('option');
         option.value = worksheet.name;
         option.text = worksheet.name;
-        if (worksheet.name === worksheet) {
-            option.selected = true;
-        }
         document.getElementById('worksheetSelect').appendChild(option);
     });
+
+    document.getElementById('worksheetSelect').value = settings.selectedWorksheet;
 });

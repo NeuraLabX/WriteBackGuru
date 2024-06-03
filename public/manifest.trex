@@ -9,8 +9,14 @@
     <source-location>
       <url>http://localhost:8080/index.html</url>
     </source-location>
+    <icon>icon.png</icon>
     <permissions>
       <permission>full data</permission>
     </permissions>
   </dashboard-extension>
+  <resources>
+    <resource id="name">
+      <text locale="en_US">WriteBack Guru</text>
+    </resource>
+  </resources>
 </manifest>
