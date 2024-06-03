@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WriteBack Guru</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <div>
-        <h1>WriteBack Guru Settings</h1>
-        <label for="setting1">Setting 1:</label>
-        <input type="text" id="setting1">
-        <br>
-        <label for="setting2">Setting 2:</label>
-        <input type="text" id="setting2">
-        <br>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WriteBack Guru Settings</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2>WriteBack Guru Settings</h2>
+      <div>
+        <label for="setting1">Database URL:</label>
+        <input type="text" id="setting1" placeholder="Enter the database URL">
+      </div>
+      <div>
+        <label for="setting2">API Key:</label>
+        <input type="text" id="setting2" placeholder="Enter the API key">
+      </div>
+      <div>
         <label for="worksheetSelect">Select Worksheet:</label>
-        <select id="worksheetSelect">
-        </select>
-        <br>
-        <button id="saveSettings">Save Settings</button>
+        <select id="worksheetSelect"></select>
+      </div>
+      <button id="saveSettings">Save Settings</button>
     </div>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>
