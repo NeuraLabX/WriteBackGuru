@@ -9,7 +9,7 @@
     "tableau:identity"
   ],
   "entry": "dist/extension.js",
-  "homepage_url": "https://github.com/marcoliver7/WriteBackGuru",
+  "homepage_url": "https://github.com/NeuraLabX/WriteBackGuru",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

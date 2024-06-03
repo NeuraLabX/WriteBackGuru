@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <title>WriteBack Guru</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteBack Guru</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <script src="dist/extension.js"></script>
+    <div>
+        <h1>WriteBack Guru Settings</h1>
+        <label for="setting1">Setting 1:</label>
+        <input type="text" id="setting1">
+        <br>
+        <label for="setting2">Setting 2:</label>
+        <input type="text" id="setting2">
+        <br>
+        <label for="worksheetSelect">Select Worksheet:</label>
+        <select id="worksheetSelect">
+        </select>
+        <br>
+        <button id="saveSettings">Save Settings</button>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
