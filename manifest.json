@@ -1,0 +1,34 @@
+{
+  "name": "WriteBack Guru",
+  "version": "1.0.0",
+  "description": "A Tableau extension for writing data back to various sources.",
+  "author": "NeuraLabX",
+  "permissions": [
+    "tableau:datasources:query",
+    "tableau:datasources:update",
+    "tableau:identity"
+  ],
+  "entry": "dist/extension.js",
+  "homepage_url": "https://github.com/marcoliver7/WriteBackGuru",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    "public/index.html",
+    "dist/extension.js"
+  ]
+}
