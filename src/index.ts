@@ -1,2 +1,13 @@
-// If index.ts is used to re-export or handle additional logic, here is a simple structure:
-export { default } from './App';
+import { initialize, showChooseSheetDialog, showErrorDialog } from './utils/tableau';
+import { setupUI } from './utils/ui';
+
+document.addEventListener('DOMContentLoaded', () => {
+  require(['tableau'], (tableau) => {
+    tableau.extensions.initializeAsync().then(() => {
+      setupUI();
+      showChooseSheetDialog();
+    }).catch(error => {
+      showErrorDialog(error.message);
+    });
+  });
+});
