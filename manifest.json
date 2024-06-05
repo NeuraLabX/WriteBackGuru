@@ -1,34 +1,28 @@
 {
+  "manifest_version": 1,
   "name": "WriteBack Guru",
+  "description": "A Tableau extension for writeback capabilities.",
   "version": "1.0.0",
-  "description": "A Tableau extension for writing data back to various sources.",
-  "author": "NeuraLabX",
-  "permissions": [
-    "tableau:datasources:query",
-    "tableau:datasources:update",
-    "tableau:identity"
-  ],
-  "entry": "dist/extension.js",
-  "homepage_url": "https://github.com/NeuraLabX/WriteBackGuru",
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "128": "icon.png"
   },
-  "default_locale": "en",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "declarativeContent",
+    "https://ajax.googleapis.com/",
+    "https://maxcdn.bootstrapcdn.com/",
+    "https://tableau.github.io/",
+    "http://localhost:8080/"
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "css": ["styles.css"]
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icon.png"
     }
-  ],
-  "web_accessible_resources": [
-    "public/index.html",
-    "dist/extension.js"
-  ]
+  }
 }

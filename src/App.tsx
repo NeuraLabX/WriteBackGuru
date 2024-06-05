@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ConfigPanel from './components/ConfigPanel';
 import DataRefSelector from './components/DataRefSelector';
-import InputField from './components/InputField';
 import { validateInput as validateField } from './utils/validation';
+
+// Declare tableau object globally
+declare const tableau: any;
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -14,14 +16,15 @@ const App: React.FC = () => {
       setIsInitialized(true);
       const savedSettings = tableau.extensions.settings.getAll();
       setSettings(savedSettings);
+    }).catch(error => {
+      console.error('Failed to initialize Tableau extension', error);
     });
   }, []);
 
-  const handleSaveSettings = () => {
+  const handleSaveSettings = async (config: any) => {
     tableau.extensions.settings.set('fields', JSON.stringify(fields));
-    tableau.extensions.settings.saveAsync().then(() => {
-      console.log('Settings saved successfully');
-    });
+    await tableau.extensions.settings.saveAsync();
+    console.log('Settings saved successfully');
   };
 
   const handleFieldChange = (index: number, value: any) => {
@@ -47,9 +50,11 @@ const App: React.FC = () => {
           <ConfigPanel
             fields={fields}
             onFieldChange={handleFieldChange}
+            onSave={handleSaveSettings}
           />
           <DataRefSelector
-            onSelectSheet={(sheet: any) => console.log(`Selected sheet: ${sheet.name}`)}
+            label="Target Sheet"
+            onSelect={(sheet: any) => console.log(`Selected sheet: ${sheet.name}`)}
           />
           <button onClick={handleSaveSettings}>Save Settings</button>
           <button onClick={handleValidation}>Validate Fields</button>

@@ -5,7 +5,7 @@ declare const tableau: any;
 
 interface DataRefSelectorProps {
   label: string;
-  onSelect: (sheetName: string) => void; 
+  onSelect: (sheetName: string) => void;
 }
 
 const DataRefSelector: React.FC<DataRefSelectorProps> = ({ label, onSelect }) => {
@@ -13,7 +13,7 @@ const DataRefSelector: React.FC<DataRefSelectorProps> = ({ label, onSelect }) =>
 
   useEffect(() => {
     tableau.extensions.initializeAsync().then(() => {
-      const dashboard = tableau.extensions.dashboardContent.dashboard; 
+      const dashboard = tableau.extensions.dashboardContent.dashboard;
       setSheets(dashboard.worksheets);
     });
   }, []);
@@ -28,9 +28,9 @@ const DataRefSelector: React.FC<DataRefSelectorProps> = ({ label, onSelect }) =>
       <select id={label} onChange={handleSelect}>
         <option value="">Select Sheet</option>
         {sheets.map((sheet) => (
-          <option key={sheet.id} value={sheet.name}> 
+          <option key={sheet.id} value={sheet.name}>
             {sheet.name}
-          </option> 
+          </option>
         ))}
       </select>
     </div>

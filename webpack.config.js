@@ -1,3 +1,4 @@
+// webpack.config.js
 const path = require('path');
 const webpack = require('webpack');
 
@@ -22,7 +23,8 @@ module.exports = {
       "zlib": require.resolve('browserify-zlib'),
       "os": require.resolve('os-browserify/browser'),
       "http": require.resolve('stream-http'),
-      "https": require.resolve('https-browserify')
+      "https": require.resolve('https-browserify'),
+      "buffer": require.resolve('buffer/')
     }
   },
   module: {
@@ -48,6 +50,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer'],
+    }),
     new webpack.ContextReplacementPlugin(
       /sequelize/,
       (context) => {
