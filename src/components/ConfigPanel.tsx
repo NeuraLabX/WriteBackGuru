@@ -6,7 +6,7 @@ import database from '../utils/database';
 import { encrypt } from '../utils/encryption';
 
 // Declare the tableau object globally
-declare const tableau: any; 
+declare const tableau: any;
 
 interface Field {
   name: string;
@@ -71,19 +71,16 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ fields, onFieldChange, onSave
   };
 
   const handleAddField = () => {
-    setFields([...fields, { name: '', type: 'text', options: [], required: false }]);
+    onFieldChange(fields.length, { name: '', type: 'text', options: [], required: false });
   };
 
   const handleFieldChange = (index: number, updatedField: Field) => {
-    const updatedFields = [...fields];
-    updatedFields[index] = updatedField;
     onFieldChange(index, updatedField);
   };
 
   const handleRemoveField = (index: number) => {
-    const updatedFields = [...fields];
-    updatedFields.splice(index, 1);
-    setFields(updatedFields);
+    const updatedFields = fields.filter((_, i) => i !== index);
+    updatedFields.forEach((field, i) => onFieldChange(i, field));
   };
 
   const handleLogicalTableChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -94,8 +91,8 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ fields, onFieldChange, onSave
     setTestConnectionStatus('Testing...');
     try {
       const encryptedCredentials = encrypt(JSON.stringify(dbCredentials));
-      await database.connect(targetDatabase, encryptedCredentials, targetTable);
-      await database.disconnect();
+      const sequelize = await database.connect(targetDatabase, encryptedCredentials);
+      await database.disconnect(sequelize);
       setTestConnectionStatus('Connection successful!');
     } catch (error: any) {
       console.error('Connection test failed:', error);
@@ -230,7 +227,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ fields, onFieldChange, onSave
                   onChange={(value) =>
                     handleFieldChange(index, {
                       ...field,
-                      options: value.split(',').map((option) => option.trim())
+                      options: value.split(',').map((option: string) => option.trim())  // Fix: Explicitly typed 'option' as 'string'
                     })
                   }
                 />

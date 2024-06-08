@@ -1,4 +1,3 @@
-// webpack.config.js
 const path = require('path');
 const webpack = require('webpack');
 
@@ -54,14 +53,15 @@ module.exports = {
       process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
     }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/,
+    }),
     new webpack.ContextReplacementPlugin(
-      /sequelize/,
-      (context) => {
-        if (!/\/sequelize\//.test(context.context)) return;
-        Object.assign(context, {
-          regExp: /^$/,
-          request: undefined,
-        });
+      /sequelize(\\|\/)/,
+      path.resolve(__dirname, './node_modules/sequelize/lib'),
+      {
+        // Map context (empty)
       }
     )
   ],

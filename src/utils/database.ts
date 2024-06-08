@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, QueryTypes } from 'sequelize';
 
 const databases: { [key: string]: any } = {
   PostgreSQL: {
@@ -51,7 +51,7 @@ const save = async (sequelize: Sequelize, data: any, tableName: string) => {
   try {
     await sequelize.query(`INSERT INTO ${tableName} SET ?`, {
       replacements: [data],
-      type: sequelize.QueryTypes.INSERT
+      type: QueryTypes.INSERT // Fix: Import and use QueryTypes from Sequelize
     });
     console.log('Data saved successfully.');
   } catch (error) {

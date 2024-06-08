@@ -1,14 +1,15 @@
-// src/utils/config.ts
+// Import the tableau module
+import { extensions as tableau } from 'tableau';
 
 export function saveConfig(key: string, value: any): void {
-    tableau.extensions.settings.set(key, value);
-    tableau.extensions.settings.saveAsync().then(() => {
+    tableau.settings.set(key, value);
+    tableau.settings.saveAsync().then(() => {
         console.log('Settings saved');
-    }).catch(err => {
+    }).catch((err: any) => {
         console.error('Error saving settings', err);
     });
 }
 
 export function getConfig(key: string): any {
-    return tableau.extensions.settings.get(key);
+    return tableau.settings.get(key);
 }

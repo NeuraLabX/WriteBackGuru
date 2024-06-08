@@ -9,7 +9,7 @@ interface DataRefSelectorProps {
 }
 
 const DataRefSelector: React.FC<DataRefSelectorProps> = ({ label, onSelect }) => {
-  const [sheets, setSheets] = useState<tableau.Sheet[]>([]);
+  const [sheets, setSheets] = useState<any[]>([]); // Fix: Use 'any[]' instead of 'tableau.Sheet[]'
 
   useEffect(() => {
     tableau.extensions.initializeAsync().then(() => {

@@ -16,7 +16,7 @@ const App: React.FC = () => {
       setIsInitialized(true);
       const savedSettings = tableau.extensions.settings.getAll();
       setSettings(savedSettings);
-    }).catch(error => {
+    }).catch((error: any) => {  // Fix: Explicitly typing 'error' as 'any'
       console.error('Failed to initialize Tableau extension', error);
     });
   }, []);
@@ -34,7 +34,7 @@ const App: React.FC = () => {
   };
 
   const handleValidation = () => {
-    const isValid = fields.every(field => validateField(field));
+    const isValid = fields.every(field => validateField(field, 'text')); // Fix: Adding the required 'type' argument
     if (isValid) {
       console.log('All fields are valid');
     } else {
